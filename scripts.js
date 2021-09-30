@@ -9,6 +9,7 @@ var config = {
 
 
 };
+
 firebase.initializeApp(config);
 
 $(document).ready(function(){
@@ -24,14 +25,11 @@ $(document).ready(function(){
     }
   });
   $(".LEDbutton").click(function(){
-  var firebaseRef=firebase.database().ref().child("ledpos");
-
-  if(ledpos==1){
-    firebaseRef.set(0);
-    ledpos=0;
-  }  else{
-    firebaseRef.set(1);
-    ledpos=1;
-  }
+  firebase.database().ref().child("ledpos").get((res, err) => {
+    if (err)
+       console.log(err)
+    else {
+      console.log(res)
+    }  
   });
 });
