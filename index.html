@@ -3,9 +3,45 @@
  <head>
    <meta charset="utf-8">
    <title>LED</title>
+   <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-   <script src="script.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+   <script>
+      var config = {
+        apiKey: "AIzaSyAE5kbcoKdl1RbenvlpVtp_b1EzvQqxTYQ",
+        authDomain: "ledstats-dfc7c.firebaseapp.com",
+        databaseURL: "https://ledstats-dfc7c-default-rtdb.firebaseio.com",
+        projectId: "ledstats-dfc7c",
+        storageBucket: "ledstats-dfc7c.appspot.com",
+        messagingSenderId: "122796939618",
+      };
+
+      firebase.initializeApp(config);
+
+      $(document).ready(function(){
+        var database=firebase.database();
+        var ledpos;
+
+        database.ref().on("value", function(snap){
+          ledpos=snap.val().leeds;
+          if(ledpos==1){
+            $(".ledpos").text("LED is ON");
+          }else{
+              $(".ledpos").text("LED is OFF");
+          }
+        });
+
+        $(".LEDbutton").click(function(){
+          const dbRef = firebase.database().ref().child("ledpos");
+          dbRef.on('value', function(snapshot) {
+              snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                console.log(childData);
+              });
+          });
+        });
+      });  
+   </script>
    <link rel="stylesheet" href="styles.css"/>
    </head>
    <body>
