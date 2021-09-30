@@ -1,0 +1,15 @@
+body{
+  text-align: center;
+  background-color:#9AC3EC
+}
+.leeds{
+  margin-top: 20%;
+  color: white;
+  font-family: verdana;
+}
+
+.LEDbutton{
+  font-size: 1em;
+  font-family: Arial;
+  padding: 10px;
+}
